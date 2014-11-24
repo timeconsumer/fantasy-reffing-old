@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block body %}
+  <ul class="list-group" id="results">
+  {% for ref in results %}
+    <li class="list-group-item">
+      <h2>
+        <a href="{{ url_for('get_ref') }}?id={{ ref.id }}">{{ ref.f_name }} {{ ref.l_name|safe }}</a>
+        <span class="badge">{{ ref.games_reffed }}</span>
+      </h2>
+    </li>
+  {% else %}
+    <li class="list-group-item"><div class="alert alert-warning" role="alert">No results found!</div></li>
+  {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% set active_page = "add_ref" %}
+{% block body %}
+    <form action="{{ url_for('add_ref') }}" method="post" class="add-ref">
+      <dl>
+        <dt>First Name:
+        <dd><input type="text" size="30" name="f_name">
+        <dt>Last Name:
+        <dd><input type="text" name="l_name" size="30">
+        <dt>Number:
+        <dd><input type="number" name="number">
+        <dt>Years In League:
+        <dd><input type="number" name="years">
+        <dd><input type="submit" value="Add Ref">
+      </dl>
+    </form>
+{% endblock %}

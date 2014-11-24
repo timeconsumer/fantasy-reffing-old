@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+{% set active_page = "show_referees" %}
+{% block body %}
+
+  <ul class="list-group" id="referees">
+  {% for ref in referees %}
+    <li class="list-group-item">
+      <h2>
+        <a href="{{ url_for('get_ref') }}?id={{ ref.id }}">{{ ref.f_name }} {{ ref.l_name|safe }}</a>
+        <span class="badge">{{ ref.games_reffed }}</span>
+      </h2>
+    </li>
+  {% else %}
+    <li><em>Unbelievable.  No entries here so far</em>
+  {% endfor %}
+  </ul>
+{% endblock %}
