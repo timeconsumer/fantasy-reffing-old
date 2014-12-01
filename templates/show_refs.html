@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% set active_page = "show_referees" %}
 {% block body %}
-
+  <h1> Active Referees </h1>
   <ul class="list-group" id="referees">
   {% for ref in referees %}
     <li class="list-group-item">
@@ -11,7 +11,10 @@
       </h2>
     </li>
   {% else %}
-    <li><em>Unbelievable.  No entries here so far</em>
+    <div class="alert alert-info" role="alert">
+      <span class="glyphicon glyphicon-hand-right" aria-hidden="true"></span>
+      <strong>Oops!</strong> We don't have any refs registered currently!
+    </div>
   {% endfor %}
   </ul>
 {% endblock %}

@@ -1,17 +1,25 @@
 {% extends "layout.html" %}
 {% set active_page = "add_ref" %}
 {% block body %}
-    <form action="{{ url_for('add_ref') }}" method="post" class="add-ref">
-      <dl>
-        <dt>First Name:
-        <dd><input type="text" size="30" name="f_name">
-        <dt>Last Name:
-        <dd><input type="text" name="l_name" size="30">
-        <dt>Number:
-        <dd><input type="number" name="number">
-        <dt>Years In League:
-        <dd><input type="number" name="years">
-        <dd><input type="submit" value="Add Ref">
-      </dl>
+    <form role="form" action="{{ url_for('add_ref') }}" method="post" class="add-ref">
+      <div class="form-group">
+        <label for="refFirstNameInput"> First Name: </label>
+        <input class="form-control" type="text" size="30" name="f_name" id="refFirstNameInput">
+      </div>
+      <div class="form-group">
+        <label for="refLastNameInput"> Last Name: </label>
+        <input class="form-control" type="text" size="30" name="l_name" id="refLastNameInput">
+      </div>
+      <div class="form-group">
+        <label for="refNumberInput"> Number: </label>
+        <input class="form-control" type="number" name="number" id="refNumberInput">
+      </div>
+      <div>
+        <label for="refYearsInput"> Years In League:</label>
+        <input class="form-control" type="number" name="years" id="refYearsInput">
+      </div>
+      <div class="containter text-right">
+        <button type="submit" class="btn btn-default">Submit</button>
+      </div>
     </form>
 {% endblock %}
