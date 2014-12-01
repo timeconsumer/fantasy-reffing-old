@@ -1,5 +1,6 @@
 from sqlalchemy import Column, Integer, create_engine, Text, String, Date, ForeignKey
 from sqlalchemy.ext.declarative import declarative_base
+import datetime
 
 Base = declarative_base()
 
@@ -11,7 +12,7 @@ class Referee(Base):
     l_name = Column(String(50), nullable=False)
     number = Column(Integer, nullable=False)
     years_active = Column(Integer, nullable=False)
-    games_reffed = Column(Integer, nullable=False)
+    games_reffed = Column(Integer, nullable=False, default=0)
 
 
 class Game(Base):
@@ -32,5 +33,6 @@ class StatLine(Base):
     total_penalties = Column(Integer, nullable=False)
 
 engine = create_engine('sqlite:///flaskapp.db')
+
 
 Base.metadata.create_all(engine)
