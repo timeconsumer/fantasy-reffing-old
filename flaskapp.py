@@ -1,52 +1,18 @@
-import os
+import json, datetime
 from sqlite3 import dbapi2 as sqlite3
 from flask import Flask, request, g, redirect, url_for, \
     render_template, flash
 from table_mapping import Base, engine, Referee, Game, StatLine
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm.exc import NoResultFound
-import json
-import datetime
 # create the flask app
 app = Flask(__name__)
 
 # Load default config and override config from an environment variable
 app.config.update(dict(
-    DATABASE=os.path.join(app.root_path, 'flaskapp.db'),
     DEBUG=True,
     SECRET_KEY='development key'
 ))
-
-
-def connect_db():
-    """Connects to the specific database."""
-    rv = sqlite3.connect(app.config['DATABASE'])
-    rv.row_factory = sqlite3.Row
-    return rv
-
-
-def init_db():
-    """Initializes the database."""
-    db = get_db()
-    with app.open_resource('schema.sql', mode='r') as f:
-        db.cursor().executescript(f.read())
-    db.commit()
-
-
-@app.cli.command('initdb')
-def initdb_command():
-    """Creates the database tables."""
-    init_db()
-    print('Initialized the database.')
-
-
-def get_db():
-    """Opens a new database connection if there is none yet for the
-    current application context.
-    """
-    if not hasattr(g, 'sqlite_db'):
-        g.sqlite_db = connect_db()
-    return g.sqlite_db
 
 
 @app.before_request
@@ -69,10 +35,14 @@ def close_db(error):
 def show_referees():
     """Gets a list of currently registered referees"""
     referees = g.db.query(Referee).all()
+    update_game_counts(referees)
+    return render_template('show_refs.html', referees=referees)
+
+
+def update_game_counts(referees):
     for ref in referees:
         ref.games_reffed = g.db.query(StatLine).filter(StatLine.active_ref_id == ref.id).count()
-        g.db.commit()
-    return render_template('show_refs.html', referees=referees)
+    g.db.commit()
 
 
 @app.route('/show_games')

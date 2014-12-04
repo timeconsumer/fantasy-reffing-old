@@ -2,7 +2,6 @@
 {% set active_page = "show_games" %}
 {% from "macros.html" import add_game with context %}
 {% block body %}
-
   <ul class="list-group" id="games">
   {% for game in games %}
     <li class="list-group-item">
@@ -127,7 +126,7 @@
   </div>
   <!-- end editModal -->
 
-    <!-- modal for deleting an entry -->
+    <!-- modal for adding a statline-->
   <div class="modal fade" id="statModal" tabindex="-1" role="dialog" aria-labelledby="statModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -157,7 +156,7 @@
       </div>
     </div>
   </div>
-  <!-- end deleteModal -->
+  <!-- end statModal -->
 
 <script type="text/javascript">
   $('#statModal').on('show.bs.modal', function (event) {
